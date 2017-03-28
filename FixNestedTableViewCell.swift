@@ -34,6 +34,7 @@ class FixNestedTableViewCell: UITableViewCell {
     }
 }
 
+
 extension FixNestedTableViewCell: UITableViewDelegate {
 
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -65,13 +66,10 @@ extension FixNestedTableViewCell: UITableViewDataSource {
         
         cell.cellLabel.text = text
 
+
         return cell
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return UITableViewAutomaticDimension
-    }
 }
 
 

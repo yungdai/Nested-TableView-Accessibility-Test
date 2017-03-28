@@ -29,13 +29,13 @@ class FixedNestedTableViewController: UITableViewController {
         return 5
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FixedNestedTableViewCell", for: indexPath) as! FixNestedTableViewCell
 
         cell.labelArray = dataArray
-        cell.tableNumberLabel.text = "Nested Table: \(indexPath.row)"
+        
+        cell.setTableNumberLabelText(text: "Nested Table: \(indexPath.row + 1)")
         cell.subTableView.reloadData()
         cell.subTableView.rowHeight = UITableViewAutomaticDimension
         
@@ -53,7 +53,7 @@ class FixedNestedTableViewController: UITableViewController {
     }
     
     
-    func setUpdataArray(name: String, count: Int) -> [String] {
+    private func setUpdataArray(name: String, count: Int) -> [String] {
        
         var array = [String]()
         

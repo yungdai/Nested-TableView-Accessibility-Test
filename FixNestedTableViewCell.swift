@@ -16,7 +16,6 @@ class FixNestedTableViewCell: UITableViewCell {
     
     var labelArray: [String]?
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -24,7 +23,11 @@ class FixNestedTableViewCell: UITableViewCell {
         setupTableView()
     }
     
-   
+    func setTableNumberLabelText(text: String) {
+        
+        self.tableNumberLabel.text = text
+        
+    }
     
     func setupTableView() {
 

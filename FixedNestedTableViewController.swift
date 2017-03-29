@@ -33,11 +33,15 @@ class FixedNestedTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FixedNestedTableViewCell", for: indexPath) as! FixNestedTableViewCell
 
+        // cell setup
         cell.labelArray = dataArray
-        
         cell.setTableNumberLabelText(text: "Nested Table: \(indexPath.row + 1)")
-        cell.subTableView.reloadData()
-        cell.subTableView.rowHeight = UITableViewAutomaticDimension
+        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
+        cell.nestedTableView.reloadData()
+        
+        // auto dimension the tableView
+        tableView.contentSize.height = UITableViewAutomaticDimension
+        
         
         /* This is the key to the getting nested collections working in Accessibility
          you must build an accessibility elements array for all the major elements in the cell into the accessibilityView.
@@ -47,7 +51,7 @@ class FixedNestedTableViewController: UITableViewController {
          This will also work with nesting another collection type such UICollectionView.
          */
         
-        cell.accessibilityView.accessibilityElements = [cell.tableNumberLabel, cell.subTableView]
+        cell.accessibilityView.accessibilityElements = [cell.tableNumberLabel, cell.nestedTableView]
 
         return cell
     }
@@ -64,18 +68,14 @@ class FixedNestedTableViewController: UITableViewController {
         }
         
         return array
-        
     }
     
     
-    // TODO: Fix the autodimensioning
+ // automatic dimensioning of the cell
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 375
+        
+        return 400
     }
     
-    /*
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return UITableViewAutomaticDimension
-    }*/
+
 }

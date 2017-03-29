@@ -14,8 +14,8 @@ class NoFixTableViewController: UITableViewController {
     lazy var dataArray: [String] = {
         
         self.setUpdataArray(name: "Nested Cell Elements", count: 5)
-
     }()
+    
     
 
     // MARK: - Table view data source
@@ -34,12 +34,14 @@ class NoFixTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "noFixTableCell", for: indexPath) as! NoFixTableViewCell
-        
+        // cell setup
         cell.labelArray = dataArray
         cell.setTableNumberLabelText(text: "Nested Table: \(indexPath.row + 1)")
-        cell.subTableView.reloadData()
-        cell.subTableView.rowHeight = UITableViewAutomaticDimension
+        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
+        cell.nestedTableView.reloadData()
         
+        // auto dimension the tableView
+        tableView.contentSize.height = UITableViewAutomaticDimension
         return cell
     }
     
@@ -69,6 +71,6 @@ class NoFixTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return UITableViewAutomaticDimension
-    } */
+    }*/
 
 }

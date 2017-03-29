@@ -11,30 +11,18 @@ import UIKit
 class FixNestedTableViewCell: UITableViewCell {
 
     @IBOutlet weak var accessibilityView: UIView!
-    @IBOutlet weak var subTableView: UITableView!
+    @IBOutlet weak var nestedTableView: UITableView!
     @IBOutlet weak var tableNumberLabel: UILabel!
     
     var labelArray: [String]?
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        // initial setup code
-        setupTableView()
-    }
     
     func setTableNumberLabelText(text: String) {
         
         self.tableNumberLabel.text = text
         
     }
-    
-    func setupTableView() {
 
-        // override the accessibility elements
-        //self.accessibilityView.accessibilityElements = [self.subTableView]
-
-    }
 }
 
 
@@ -73,6 +61,19 @@ extension FixNestedTableViewCell: UITableViewDataSource {
         return cell
     }
     
+    
+    // automatic dimensioning of the cell
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return 30
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        
+        return UITableViewAutomaticDimension
+    }
+
 }
 
 

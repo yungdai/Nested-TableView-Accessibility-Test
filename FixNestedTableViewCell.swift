@@ -14,9 +14,12 @@ class FixNestedTableViewCell: UITableViewCell {
     @IBOutlet weak var nestedTableView: UITableView!
     @IBOutlet weak var tableNumberLabel: UILabel!
     
-    var labelArray: [String]?
-    
-    
+//    required init?(coder aDecoder: NSCoder) {
+//        super.init(coder: aDecoder)
+//        
+//        nestedTableView.register(NestedTableViewCell.classForCoder(), forCellReuseIdentifier: "NoFixedNestedTableViewCell")
+//    }
+
     func setTableNumberLabelText(text: String) {
         
         self.tableNumberLabel.text = text
@@ -26,55 +29,8 @@ class FixNestedTableViewCell: UITableViewCell {
 }
 
 
-extension FixNestedTableViewCell: UITableViewDelegate {
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-}
 
 
-extension FixNestedTableViewCell: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
-        guard let data = labelArray else { return 0 }
-        
-        return data.count
-    }
-
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "NestedTableViewCell", for: indexPath) as! NestedTableViewCell
-        
-        guard let text = labelArray?[indexPath.row] as String! else  {
-            
-            cell.cellLabel.text = "No Text"
-            return cell
-        }
-        
-        cell.cellLabel.text = text
-
-
-        return cell
-    }
-    
-    
-    // automatic dimensioning of the cell
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return 30
-    }
-    
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return UITableViewAutomaticDimension
-    }
-
-}
 
 
 

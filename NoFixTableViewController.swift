@@ -16,7 +16,7 @@ class NoFixTableViewController: UITableViewController {
         self.setUpdataArray(name: "Nested Cell Elements", count: 5)
     }()
     
-    
+    var nestedDataSource = VerticalDataSource()
 
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -35,17 +35,24 @@ class NoFixTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "noFixTableCell", for: indexPath) as! NoFixTableViewCell
         // cell setup
-        cell.labelArray = dataArray
         cell.setTableNumberLabelText(text: "Nested Table: \(indexPath.row + 1)")
-        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
+        
+        // delegate the datasource and delegate function to the nestedDataSource NSObject that Jacky told me to create
+        nestedDataSource.items = dataArray
+        nestedDataSource.tableViewCellIdentifier = "NoFixedNestedTableViewCell"
+        cell.nestedTableView.dataSource = nestedDataSource
+        cell.nestedTableView.delegate = nestedDataSource
         cell.nestedTableView.reloadData()
+        
+        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
         
         // auto dimension the tableView
         tableView.contentSize.height = UITableViewAutomaticDimension
         return cell
     }
     
-    func setUpdataArray(name: String, count: Int) -> [String] {
+    
+    private func setUpdataArray(name: String, count: Int) -> [String] {
         
         var array = [String]()
         
@@ -65,12 +72,5 @@ class NoFixTableViewController: UITableViewController {
         return 400
     }
     
-    
-    // need to fix the autodimensioning
-    /*
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return UITableViewAutomaticDimension
-    }*/
 
 }

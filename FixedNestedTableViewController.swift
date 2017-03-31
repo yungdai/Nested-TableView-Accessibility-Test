@@ -15,6 +15,8 @@ class FixedNestedTableViewController: UITableViewController {
         
         self.setUpdataArray(name: "Nested Cell Elements", count: 5)
     }()
+    
+    var nestedDataSource = VerticalDataSource()
 
     // MARK: - Table view data source
 
@@ -29,15 +31,21 @@ class FixedNestedTableViewController: UITableViewController {
         return 5
     }
 
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "FixedNestedTableViewCell", for: indexPath) as! FixNestedTableViewCell
 
         // cell setup
-        cell.labelArray = dataArray
         cell.setTableNumberLabelText(text: "Nested Table: \(indexPath.row + 1)")
-        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
+
+        // delegate the datasource and delegate function to the nestedDataSource NSObject that Jacky told me to create
+        nestedDataSource.items = dataArray
+        nestedDataSource.tableViewCellIdentifier = "NestedTableViewCell"
+        cell.nestedTableView.dataSource = nestedDataSource
+        cell.nestedTableView.delegate = nestedDataSource
         cell.nestedTableView.reloadData()
+        cell.nestedTableView.rowHeight = UITableViewAutomaticDimension
         
         // auto dimension the tableView
         tableView.contentSize.height = UITableViewAutomaticDimension
@@ -71,11 +79,10 @@ class FixedNestedTableViewController: UITableViewController {
     }
     
     
- // automatic dimensioning of the cell
+    // automatic dimensioning of the cell
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return 400
     }
-    
 
 }
